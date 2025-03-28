@@ -1,3 +1,7 @@
 streamlit
 pandas
 openpyxl  # Necesario para archivos Excel
+plotly
+yfinance
+pandas-datareader
+prophet
