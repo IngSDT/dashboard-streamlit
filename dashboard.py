@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 
 # Título del dashboard
-st.title("📊 Dashboard Público con Carga de Archivos")
+st.title("📊 Dashboard Para visualizar información con Carga de Archivos")
 
 # Área para subir archivos
 uploaded_file = st.file_uploader("📂 Selecciona un archivo", type=["csv", "xlsx"])
