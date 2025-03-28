@@ -1,28 +1,41 @@
-import streamlit as st
+iimport streamlit as st
 import pandas as pd
+import plotly.express as px
 
-# Agregar un logo
-st.image("Logo_azul_transparencia2.png", width=150)  # Asegúrate de que "logo.png" está en la misma carpeta
+# Configuración de la página
+st.set_page_config(page_title="Dashboard de Ventas", layout="wide")
 
-# Título del dashboard
-st.title("📊 Dashboard Para visualizar información con Carga de Archivos")
+st.title("Dashboard de Ventas por Categoría")
 
-# Área para subir archivos
-uploaded_file = st.file_uploader("📂 Selecciona un archivo", type=["csv", "xlsx"])
+# Subir archivo CSV
+archivo = st.file_uploader("pizza_sales", type=["csv"])
 
-# Procesar el archivo subido
-if uploaded_file is not None:
-    st.success(f"✅ Archivo '{uploaded_file.name}' subido correctamente")
+if archivo is not None:
+    # Cargar el DataFrame
+    df = pd.read_csv(archivo)
 
-    # Si es un archivo CSV
-    if uploaded_file.name.endswith(".csv"):
-        df = pd.read_csv(uploaded_file)
-    # Si es un archivo Excel
-    elif uploaded_file.name.endswith(".xlsx"):
-        df = pd.read_excel(uploaded_file, engine="openpyxl")
+    # Verificar que las columnas necesarias existen
+    if "Category" in df.columns and "total_price" in df.columns:
+        # Agrupar por categoría y sumar los precios
+        data_agrupada = df.groupby("Category")["total_price"].sum().reset_index()
 
-    # Mostrar los datos
-    st.write("📌 Vista previa del archivo:")
-    st.dataframe(df)
-else:
-    st.info("⚠️ Esperando que subas un archivo...")
+        # Mostrar tabla de totales
+        st.write("### Total de ventas por categoría")
+        st.dataframe(data_agrupada)
+
+        # Crear gráfico de barras
+        fig = px.bar(
+            data_agrupada,
+            x="Category",
+            y="total_price",
+            title="Total de Ventas por Categoría",
+            labels={"total_price": "Total en $", "Categoria": "Categoría"},
+            text_auto=True,
+            color="Category",
+        )
+
+        # Mostrar gráfico
+        st.plotly_chart(fig, use_container_width=True)
+
+    else:
+        st.error("El archivo debe contener las columnas 'Categoria' y 'total_price'.")
