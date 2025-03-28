@@ -3,7 +3,7 @@ import pandas as pd
 import plotly.express as px
 
 # Configuración de la página
-st.set_page_config(page_title="Dashboard de Ventas", layout="wide")
+st.set_page_config(page_title="Dashboard de Ventas de Pizzas", layout="wide")
 
 st.title("Dashboard de Ventas por Categoría")
 
