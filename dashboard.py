@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 
 # Agregar un logo
-st.image("logo_azul_transparencia2.png", width=150)  # Asegúrate de que "logo.png" está en la misma carpeta
+st.image("Logo_azul_transparencia2.png", width=150)  # Asegúrate de que "logo.png" está en la misma carpeta
 
 # Título del dashboard
 st.title("📊 Dashboard Para visualizar información con Carga de Archivos")
