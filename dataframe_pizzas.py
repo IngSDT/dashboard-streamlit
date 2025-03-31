@@ -8,14 +8,14 @@ st.set_page_config(page_title="Dashboard de Ventas de Pizzas", layout="wide")
 st.title("Dashboard de Ventas por Categoría")
 
 # Subir archivo CSV
-archivo = st.file_uploader("pizza_sales", type=["csv"])
+#archivo = st.file_uploader("pizza_sales", type=["csv"])
 
-if archivo is not None:
+
     # Cargar el DataFrame
-    df = pd.read_csv(archivo)
+df = pd.read_csv("Dashboard/pizza_sales.csv")
 
     # Verificar que las columnas necesarias existen
-    if "pizza_category" in df.columns and "total_price" in df.columns:
+if "pizza_category" in df.columns and "total_price" in df.columns:
         # Agrupar por categoría y sumar los precios
         data_agrupada = df.groupby("pizza_category")["total_price"].sum().reset_index()
 
@@ -37,5 +37,5 @@ if archivo is not None:
         # Mostrar gráfico
         st.plotly_chart(fig, use_container_width=True)
 
-    else:
+else:
         st.error("El archivo debe contener las columnas 'Categoria' y 'total_price'.")
